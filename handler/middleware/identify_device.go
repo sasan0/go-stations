@@ -4,15 +4,14 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/TechBowl-japan/go-stations/model"
 	"github.com/mileusna/useragent"
 )
 
-type UserAgent struct{}
-
 func IdentifyDevice(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ua := useragent.Parse(r.UserAgent())
+		os := useragent.Parse(r.UserAgent()).OS
 
-		h.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), UserAgent{}, ua)))
+		h.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), model.UserAgent{}, os)))
 	})
 }
