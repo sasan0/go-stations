@@ -13,7 +13,6 @@ func Recovery(h http.Handler) http.Handler {
 				fmt.Println("Error:", err)
 			}
 
-			fmt.Println("Recoverd!")
 			h.ServeHTTP(w, r)
 		}()
 	}
